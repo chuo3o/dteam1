@@ -1,9 +1,16 @@
 #include <iostream>
-#include "gmock/gmock.h"
+#include <gmock/gmock.h>
+using namespace testing;
+
 
 using namespace testing;
 class Cal {
 public:
+
+	int getSum(int a, int b) {
+		return a+b;
+	}
+
 	int getDivide(int a, int b) {
 		return a / b;
 	}
@@ -26,6 +33,26 @@ public:
 	}
 };
 
+class CalculatorFixture: public Test {
+public:
+	Cal cal;
+	void test(int expected, int actual) {
+		EXPECT_EQ(expected, actual);
+	}
+};
+TEST_F(CalculatorFixture, GetSumTC1) {
+	test(cal.getSum(1, 2), 3);
+}
+
+TEST_F(CalculatorFixture, GetSumTC2) {
+	test(cal.getSum(1e8, 3e8), 4e8);
+}
+
+TEST_F(CalculatorFixture, GetSumTC3) {
+	test(cal.getSum(1<<30, -(1<<30)), 0);
+}
+
+
 TEST(tc, tc1) {
 	EXPECT_EQ(1, 1);
 }
@@ -45,6 +72,7 @@ TEST(tc, zegop) {
 	EXPECT_EQ(9, cal.getZegop(3));
 	EXPECT_EQ(16, cal.getZegop(4));
 }
+
 TEST(caltc, basic_cal_minus) {
 
 	Cal objCal;
@@ -53,6 +81,7 @@ TEST(caltc, basic_cal_minus) {
 	expected = 100 - 10;
 	EXPECT_EQ(expected, actual);
 }
+
 
 int main() {
 	InitGoogleMock();
