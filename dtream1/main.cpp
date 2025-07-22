@@ -1,6 +1,7 @@
 #include <iostream>
-#include <gmock/gmock.h>
+#include "gmock/gmock.h"
 
+using namespace testing;
 class Cal {
 public:
 	int getDivide(int a, int b) {
@@ -17,6 +18,11 @@ public:
 
 	int getZegop(int a) {
 		return a * a;
+	}
+
+	int getMinus(int a, int b)
+	{
+		return a - b;
 	}
 };
 
@@ -39,8 +45,16 @@ TEST(tc, zegop) {
 	EXPECT_EQ(9, cal.getZegop(3));
 	EXPECT_EQ(16, cal.getZegop(4));
 }
+TEST(caltc, basic_cal_minus) {
+
+	Cal objCal;
+	int actual, expected;
+	actual = objCal.getMinus(100, 10);
+	expected = 100 - 10;
+	EXPECT_EQ(expected, actual);
+}
 
 int main() {
-	::testing::InitGoogleMock();
+	InitGoogleMock();
 	return RUN_ALL_TESTS();
 }
