@@ -52,36 +52,31 @@ TEST_F(CalculatorFixture, GetSumTC3) {
 	test(cal.getSum(1<<30, -(1<<30)), 0);
 }
 
-
-TEST(tc, tc1) {
-	EXPECT_EQ(1, 1);
+TEST_F(CalculatorFixture, gop) {
+	EXPECT_EQ(2, cal.getGop(1, 2));
+	EXPECT_EQ(6, cal.getGop(2, 3));
+	EXPECT_EQ(15, cal.getGop(3, 5));
+	EXPECT_EQ(36, cal.getGop(4, 9));
 }
 
-TEST(tc, gop) {
-    Cal cal;
-    EXPECT_EQ(2, cal.getGop(1, 2));
-    EXPECT_EQ(6, cal.getGop(2, 3));
-    EXPECT_EQ(15, cal.getGop(3, 5));
-    EXPECT_EQ(36, cal.getGop(4, 9));
-}
-
-TEST(tc, zegop) {
-	Cal cal;
+TEST_F(CalculatorFixture, zegop) {
 	EXPECT_EQ(1, cal.getZegop(1));
 	EXPECT_EQ(4, cal.getZegop(2));
 	EXPECT_EQ(9, cal.getZegop(3));
 	EXPECT_EQ(16, cal.getZegop(4));
 }
 
-TEST(caltc, basic_cal_minus) {
+TEST_F(CalculatorFixture, basic_cal_minus) {
 
-	Cal objCal;
 	int actual, expected;
-	actual = objCal.getMinus(100, 10);
+	actual = cal.getMinus(100, 10);
 	expected = 100 - 10;
 	EXPECT_EQ(expected, actual);
 }
 
+TEST_F(CalculatorFixture, SumSum) {
+	EXPECT_EQ(6, cal.getSumSum(1, 2, 3));
+}
 
 int main() {
 	InitGoogleMock();
